@@ -21,10 +21,9 @@ output:
     
 ---
 
-# Miembros del equipo
-
-La actividad ha sido realizada de manera individual por:  
-__Reison Arturo Torres Urina__.
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 # Detalles de la actividad  
 
@@ -69,51 +68,74 @@ transformación, limpieza y validación) para su posterior análisis.
 
 ## Descripción del dataset  
 
-Los datos seleccionados, fueron obtenidos del sitio de data science, [www.Kaggle.com](https://www.kaggle.com), en el encontramos una variedad de dataset Open Data. El conjunto de datos seleccionados para desarrollar esta actividad es [Red Wine Quality](https://www.kaggle.com/uciml/red-wine-quality-cortez-et-al-2009), en este dataset encontramos la pruebas fisicoquimica y sensoriar de la variedad de vino roja y blanco del vino Portuges "Vinho Verde".  
+### Descripción
 
-En este dataset encontramos mas de 4898 observaciones, y 12 variables. Las característica presenten en este dataset, nos permitirá cumplir los objetivos propuestos en esta actividad. 
+Los datos seleccionados, fueron obtenidos del sitio de data science, [__www.Kaggle.com__](https://www.kaggle.com), en el encontramos una variedad de dataset Open Data. El conjunto de datos seleccionados para desarrollar esta actividad es [__Titanic: Machine Learning from Disaster__](https://www.kaggle.com/c/titanic), en este dataset encontramos, los datos de los pasajeros, que abordaron el Titanic en su viaje inaugural.
 
-A continuación describimos el conjunto de variables que describen este dataset:
+Los datos de este dataset se encuentran divididos en dos archivos train.csv con 891 observaciones y test.cvs con 418 observaciones. El conjunto de datos esta descripto por un conjunto de 12 variables. Las característica presenten en este dataset, nos permitirá cumplir los objetivos propuestos en esta actividad. 
 
-* __fixed acidity__: Nivel de acides que se encuentra el vino. Los ácidos son los principales componentes del vino y contribuyen en gran medida a su sabor.  
-* __volatile acidity:__ Nivel de acides volátil presente en el vino.  
-* __citric acid:__ Nivel de ácido cítrico. Aumentar la acidez, o le da un sabor específico.  
-* __residual sugar:__ Cantidad de azúcar en el vino luego que se detiene la fermentación.  
-* __chlorides:__ Cantidad de sal en el vino.  
-* __free sulfur dioxide:__ Niveles de conservantes o antioxidante en el vino.  
-* __total sulfur dioxide:__ Cantidad de free sulfur dioxide unidads al SO2 del vino.  
-* __density:__ Cantidad de azúcar y alcohol contenida en el vino.   
-* __pH__: Describe que tan ácido o básico es un vino, en una escala de 0 (muy ácido) a 14 (muy básico); la mayoría de los vinos están entre 3-4 en la escala de pH.  
-* __sulphates__: Cantidad de conservante para prevenir la oxidación y mantener la frescura del vino.  
-* __alcohol__: Cantidad de alcohol contenida en el vino.  
-* __quality__: Indica la calidad del vino, determinada por datos sensoriales (escala entre 0 y 10).
+A continuación describimos el conjunto de variables que conforman este dataset:  
+
+* __PassengerId:__ Número consecutivo que identifica al pasajero.    
+* __pclass:__ Nivel socioeconómico del pasajero (1st = Upper, 2nd = Middle, 3rd = Lower).  
+* __age:__ Edad del pasajero en años.  
+* __sibsp:__ Familiar abordo del Titanic. Define la relación familiar de la siguiente forma:  
+ : Hermanos => 1 = hermana, 2 = hermano, 3 = hermanastro, 4 = hermanastra  
+ : Esposos => 5 = esposo, 6 = esposa, 7 = amantes y 8 = novio  
+* __parch:__ Familiar abordo del Titanic. Define la relación familiar de la siguiente forma:  
+ : Padres => 1 = madre, 2 = padre  
+ : Hijos => 3 = hija, 4 = hijo, 5 = hijastra, 6 = hijastro  
+* __ticket:__ Número del boleto de abordaje.  
+* __fare:__ Precio del boleto.  
+* __cabin:__ Número de la cabina.  
+* __embarked:__ Puerto de embarque (C = Cherbourg, Q = Queenstown, S = Southampton).  
+* __survival:__ Pasajero superviviente (0 = No, 1 = Yes)
+
+
+### Importancia y objetivos de los análisis
+
+
+A partir de este conjunto de datos se plantea la problemática de determinar qué variables influyen más en la supervivencia de un pasajero en el naufragio del Titanic. Además, se podrá proceder a crear modelos de regresión  que permitan predecir si un pasajero sobrevive o no en función de sus características y contrastes de hipótesis que ayuden a identificar propiedades interesantes en las muestras que puedan ser inferidas con respecto a la población.  
+
+Este tipo de análisis pueden ser utilizados por las aseguradoras del sector turístico, para determinar el riesgo que puede tener un turista al viajar en los trasatlánticos. Y asi poder ofreser las cobertura del seguro.
+
+## Integración y selección de los datos de interés a analizar
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+  # cargamos paquetes R que vamos a utilizar
+  library(ggplot2)
+  library(ggpubr)
+  library(dplyr)
+  library(Hmisc)
+  library(corrplot)
+
+if(!require(ggplot2)){
+    install.packages('ggplot2', repos='http://cran.us.r-project.org')
+    library(ggplot2)
+}
+```
+### Integración
+
+En esta practica unificaremos los datos contenido en el dataset train.csv y test.cvs. Para el dataset train.csv agregaremos la variable __survival__ extrayendo su valor del dataset gender_submission.csv.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+black_friday.data<-read.csv("/home/datamining/Documents/PRAC1/Datos/BlackFriday.csv",stringsAsFactors = FALSE, header=T, sep=",")
+
+# calculamos el numero de registros cargados en el dataset
+filas=dim(black_friday.data)[1]
+```
 
 
 
-## Importancia y objetivos de los análisis
+### Selección de los datos
 
+La gran mayoría de las variables contenidas en el conjunto de datos corresponde con características de los pasajeros que abordaron el Titanic, por lo que serán tenidas en cuenta para realizar nuestro análisis. Sin embargo, podremos prescindir de la variable __PassengerId__ dado que este atributo no aporta una descripción al pasajero, y no influye en la resolución de nuestro problema.
 
-__Descripción__: Este conjunto de datos contiene el listado de productos y precios que se comercializan diariamente en los puntos de venta de las diferentes Bodegas de la corporación CORABASTOS y dichos precios están dirigido al consumidor.
+## Limpieza de los datos
 
-## Contenido
+### ¿Los datos contienen ceros o elementos vacíos?
+### ¿Cómo gestionarías cada uno de estos casos?
 
-La base datos de productos y precios que se comercializan a diario al consumidor, publicados por la entidad CORABASTOS, está constituido por variables numéricas y de textos. A continuación daremos una pequeña descripción, acerca de lo que representa, cada una de las variables, que se encuentra en este conjunto de datos.  
-
-1. **Grupo**: Nombre del grupo al que pertenece un producto (HORTALIZAS, FRUTAS, TUBERCULOS, PLATANOS, GRANOS Y PROCESADOS, LACTEOS, CARNICOS y HUEVOS)  . (Texto).  
-2. **Nombre**: Nombre o descripción del producto. (Texto).   
-3. **Presentación**: Presentaciones de venta en la que viene el producto. (Texto).  
-4. **Cantidad**: Número de unidades que vienen por presentación. (Numérico).  
-5. **Unidad**: Unidad de medida en la que se vende el producto. (Texto).  
-6. **Cal_Extra**: Precio máximo de venta. (Numérico).  
-7. **Cal_Primera**: Precio mínimo de venta. (Numérico).  
-8. **Valor**: Precio de venta. (Numérico).  
-9. **Fecha_publicacion**: Fecha de publicacion del precio del producto. (Fecha).  
-
-Estos datos son publicados diariamente solo en los días hábiles de L-V.
-
-## Agradecimientos
-
-Los datos han sido recolectados desde la base de datos online [AppCoraPrecios](https://www.corabastos.com.co/sitio/historicoApp2/reportes/prueba.php). Para ello, se ha hecho uso del lenguaje de programación Python y de técnicas de *Web Scraping* para extraer la información alojada en las páginas HTML.
+### Identificación y tratamiento de valores extremos
 
 ## Inspiración
 
