@@ -227,9 +227,80 @@ levels(titanc.data[,"Embarked"]) <- c("?","Cherbourg", "Queenstown", "Southampto
 str(titanc.data)
 ```
 
-### Ceros o elementos vacíos
+### Tratamientos de ceros o elementos vacíos
 
 Los datos vacíos o no definidos pueden presentarse en distintos formatos, típicamente “”, ? ,“ “ o NA (Not Available en inglés), pero en algunos contextos pueden incluso tomar valores numéricos como 0 o 999.
+
+A continuación inspeccionaremos, que atributos de nuestro dataset, tienen una cantidad alta de valores no disponibles o valores faltantes en los diferentes formatos  ("",?, " " o NA):
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+
+# Funcion: Explorar atributos con valores faltante
+# Parmetros:
+# 1. dataset: conjunto de datos con los atributos a explorar
+hasValoresFaltantes <- function(dataset){
+  # Verificar si existen variables cuantitativas con valores NA
+  variablesWithNA <- colSums(is.na(dataset))
+  
+  # Verificar si existen variables con cadenas vacias
+  variablesWithEmpaty <- colSums(dataset=="")
+  variablesWithEmpaty[is.na(variablesWithEmpaty)] <- 0
+  
+  # Verificar si existen variables con valores desconocidos ("?").
+  variablesWithQuestionMark <- colSums(dataset=="?")
+  variablesWithQuestionMark[is.na(variablesWithQuestionMark)] <- 0
+  
+  # Verificar si existen variables con valores desconocidos (" ").
+  variablesWithSpace <- colSums(dataset==" ")
+  variablesWithSpace[is.na(variablesWithSpace)] <- 0
+  
+  df <- data.frame(variables = names(variablesWithNA),"NA" = as.vector(variablesWithNA),stringsAsFactors = F)
+  
+  df = bind_cols(df,"Empaty" = as.vector(variablesWithEmpaty))
+  df = bind_cols(df,"?" = as.vector(variablesWithQuestionMark))
+  df = bind_cols(df,"Space" = as.vector(variablesWithSpace))
+  
+  df 
+  #ls <- list(valoresFaltantes = df);
+  #ls$totalMuestras <- dim(dataset)[1]
+  #ls
+}
+
+
+```
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Verificar si existen variables con valores faltantes
+hasValoresFaltantes(titanc.data)
+
+```
+
+Al observar el resultado del análisis anterior, podemos identificar que para las variables Age y Fare presenta  valores faltantes (NA). Para la variable Cabin se identifica que presenta una cantidad alta de valores faltantes en el formato vacío (""). y para la variable Embarked se identifica valores faltantes en el formato "?".
+
+Llegados a este punto debemos decidir cómo manejar estos registros que contienen valores desconocidos:
+
+Para el  atributo __Embarked__ realizamos un análisis de proporción de valores faltantes y lo actualizaremos en función del valor mas frecuente. Existen 2 casos con valor faltante con formato "?", con una proporción del 0.15%, el valor más frecuentes es "Southampton" con una proporción del 56.98% .
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+arrange(data.frame(round(prop.table(table(titanc.data$Embarked)),4)*100),-Freq)
+
+# actualizamos los valores faltantes con el valor más frecuente
+titanc.data$Embarked[titanc.data$Embarked=="?"] <- "Southampton"
+
+```
+
+Para el  atributo __Cabin__ realizamos un análisis de proporción de valores faltantes. Existen 1014 casos con valor faltante con formato vacío (""), con una proporción del 77.46%, esto corresponde a más de la mitad de las observaciones. Si intentamos completar los valores faltantes, por alguna de las técnicas de imputación de valores perdidos, debido a la alta cantidad de valores faltantes, en este atributo, nos puede generar sesgos en los datos de este atributo. De acuerdo a esto, se decide eliminar el atributo __Cabin__ del dataset en estudio.
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+data.frame(Total=sort(colSums(titanc.data == ""), decreasing = TRUE),Porcentaje = sort(round(colMeans(titanc.data == "")*100, digits = 2), decreasing = TRUE))
+
+# Eliminamos la variable Cabin
+titanc.data <- titanc.data[, !(names(titanc.data) %in% c("Cabin"))]
+
+```
 
 ### Identificación y tratamiento de valores extremos
 
