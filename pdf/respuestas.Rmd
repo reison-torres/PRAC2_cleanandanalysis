@@ -5,15 +5,15 @@ date: "Diciembre 2019"
 header-includes:
   - \usepackage[spanish]{babel}
 output: 
-  pdf_document:
-    number_sections: yes
-    toc: yes
-    toc_depth: 2
   html_document:
     includes:
       in_header: PRA2-header.html
     number_sections: yes
     theme: cosmo
+    toc: yes
+    toc_depth: 2
+  pdf_document:
+    number_sections: yes
     toc: yes
     toc_depth: 2
   word_document: default
@@ -107,17 +107,17 @@ Los datos de este dataset se encuentran divididos en dos archivos train.csv con 
 
 Variables contenidas en el dataset __train.csv__:  
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-str(titanic.train)
+summary(titanic.train)
 ```
 
 Variables contenidas en el dataset __test.cvs__:  
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-str(titanic.test)
+summary(titanic.test)
 ```
 
 Variables contenidas en el dataset __gender_submission.csv__:  
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-str(titanic.test.survived)
+summary(titanic.test.survived)
 ```  
 
 Este dataset __gender_submission.csv__ contiene la variable de survived, que luego utilizaremos para agregar al dataset __titanic.test__.
@@ -162,8 +162,8 @@ Con el fin de tener una estructura de datos coherente y única que contenga mayo
 # Realizamos una fusión horizontal entre los dataset titanic.test y titanic.test.survived para agregar el atributo survived
 titanic.test <- inner_join(titanic.test, titanic.test.survived, by ="PassengerId")
 
-#Creamos el dataset titanc.data con la combinacion de los datos de los dataset  titanic.train y titanic.test
-titanc.data <- bind_rows(titanic.train,titanic.test) 
+#Creamos el dataset titanic.data con la combinacion de los datos de los dataset  titanic.train y titanic.test
+titanic.data <- bind_rows(titanic.train,titanic.test) 
 
 # Eliminamos los dataset temporales
 rm(titanic.test.survived)
@@ -171,7 +171,7 @@ rm(titanic.test)
 rm(titanic.train)
 
 # Verificamos la estructura del dataset con los datos combinados
-str(titanc.data)
+summary(titanic.data)
 ```
 
 ### Selección de los datos
@@ -180,10 +180,10 @@ La gran mayoría de las variables contenidas en el conjunto de datos corresponde
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Eliminamos del dataset las variables "PassengerId" y "Name"
-titanc.data <- titanc.data[,!(colnames(titanc.data) %in% c("PassengerId","Name"))]
+titanic.data <- titanic.data[,!(colnames(titanic.data) %in% c("PassengerId","Name"))]
 
 # Verificamos la estructura del dataset
-str(titanc.data)
+summary(titanic.data)
 ```
 
 ## Limpieza de los datos
@@ -194,20 +194,20 @@ Al cargar los archivos con la función read.csv(), esta de manera automática as
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Tipos de variables
-titanc.data.ctype <- sapply(titanc.data,class)
+titanic.data.ctype <- sapply(titanic.data,class)
 
-titanc.data.ctype <- data.frame(variables = names(titanc.data.ctype),tipo = as.vector(titanc.data.ctype),stringsAsFactors = F)
+titanic.data.ctype <- data.frame(variables = names(titanic.data.ctype),tipo = as.vector(titanic.data.ctype),stringsAsFactors = F)
 
-titanc.data.ctype
-rm(titanc.data.ctype)
+titanic.data.ctype
+rm(titanic.data.ctype)
 ```
 
 En este paso realizamos un analisis sobre las variables, que en R han sido cargadas como continuas pero en realidad son discretas (factor).Para esto realizamos un análisis de discretizacion sobre los atributos, para identificar que variables tienen sentido discretizar.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-#summary(titanc.data[,titanc.data.ctype[titanc.data.ctype$tipo == "numeric",]$variables])
+#summary(titanic.data[,titanic.data.ctype[titanic.data.ctype$tipo == "numeric",]$variables])
 # Identificar el número de clases que se encuentra en cada variable del dataset
-apply(titanc.data,2, function(x) length(unique(x)))
+apply(titanic.data,2, function(x) length(unique(x)))
 
 ```
 
@@ -217,14 +217,14 @@ Con el fin de facilitar la interpretar y comparar los resultados de diferentes g
 
 cols<-c("Survived","Pclass","Sex","SibSp","Parch","Embarked")
 for (i in cols){
-  titanc.data[,i] <- as.factor(titanc.data[,i]) # Conversion de variable a tipo factor
+  titanic.data[,i] <- as.factor(titanic.data[,i]) # Conversion de variable a tipo factor
 }
 
-levels(titanc.data[,"Survived"]) <- c("No","Si") 
-levels(titanc.data[,"Pclass"]) <- c("Upper","Middle", "Lower")
-levels(titanc.data[,"Embarked"]) <- c("?","Cherbourg", "Queenstown", "Southampton")
+levels(titanic.data[,"Survived"]) <- c("No","Si") 
+levels(titanic.data[,"Pclass"]) <- c("Upper","Middle", "Lower")
+levels(titanic.data[,"Embarked"]) <- c("?","Cherbourg", "Queenstown", "Southampton")
 
-str(titanc.data)
+summary(titanic.data)
 ```
 
 ### Tratamientos de ceros o elementos vacíos
@@ -272,7 +272,7 @@ hasValoresFaltantes <- function(dataset){
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Verificar si existen variables con valores faltantes
-hasValoresFaltantes(titanc.data)
+hasValoresFaltantes(titanic.data)
 
 ```
 
@@ -284,23 +284,65 @@ Para el  atributo __Embarked__ realizamos un análisis de proporción de valores
 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-arrange(data.frame(round(prop.table(table(titanc.data$Embarked)),4)*100),-Freq)
+arrange(data.frame(round(prop.table(table(titanic.data$Embarked)),4)*100),-Freq)
 
 # actualizamos los valores faltantes con el valor más frecuente
-titanc.data$Embarked[titanc.data$Embarked=="?"] <- "Southampton"
+titanic.data$Embarked[titanic.data$Embarked=="?"] <- "Southampton"
 
 ```
 
-Para el  atributo __Cabin__ realizamos un análisis de proporción de valores faltantes. Existen 1014 casos con valor faltante con formato vacío (""), con una proporción del 77.46%, esto corresponde a más de la mitad de las observaciones. Si intentamos completar los valores faltantes, por alguna de las técnicas de imputación de valores perdidos, debido a la alta cantidad de valores faltantes, en este atributo, nos puede generar sesgos en los datos de este atributo. De acuerdo a esto, se decide eliminar el atributo __Cabin__ del dataset en estudio.
+Para el  atributo __Cabin__ realizamos un análisis de proporción de valores faltantes. Existen 1014 casos con valor faltante con formato vacío (""), con una proporción del 77.46%, esto corresponde a más de la mitad de las observaciones. Si intentamos completar los valores faltantes, por alguna de las técnicas de imputación de valores perdidos, debido a la alta cantidad de valores faltantes en este atributo, nos puede generar sesgos en los datos de este atributo. De acuerdo a esto, se decide eliminar el atributo __Cabin__ del dataset en estudio.
 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-data.frame(Total=sort(colSums(titanc.data == ""), decreasing = TRUE),Porcentaje = sort(round(colMeans(titanc.data == "")*100, digits = 2), decreasing = TRUE))
+data.frame(Total=sort(colSums(titanic.data == ""), decreasing = TRUE),Porcentaje = sort(round(colMeans(titanic.data == "")*100, digits = 2), decreasing = TRUE))["Cabin",]
 
 # Eliminamos la variable Cabin
-titanc.data <- titanc.data[, !(names(titanc.data) %in% c("Cabin"))]
+titanic.data <- titanic.data[, !(names(titanic.data) %in% c("Cabin"))]
 
 ```
+
+Como podemos observar las variables __SibSp__, __Parch__ y __Fare__, presenta datos con valores igual a cero, pero para las variables __SibSp__, __Parch__ este valor cero significa que no tiene no tienen familiares abordo.
+
+Para la variable __Fare__ los valores ceros podria significar un error de datos faltantes, ya que tienen un numero de ticket asignado, o tambien podriamos decir que este cero equivale a que estos ticket fueron entregados por un premio. Para esta actividad asumiremos que es un error y lo consideraremos como valores faltantes.
+
+Calculamos la proporciona de valores ceros en la variable __Fare__, y los remplazamos por el formato de valor faltante (NA), para luego predecir estos valores con el método kNN. Existen 17 casos con valor faltante con formato vacío (0), con una proporción del 1.3%.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+
+# Proporcion en 
+data.frame(Var = c("Fare"),Total = length(titanic.data$Fare[titanic.data$Fare == 0 & !is.na(titanic.data$Fare)]),Porcentaje = round((length(titanic.data$Fare[titanic.data$Fare == 0 & !is.na(titanic.data$Fare)])/dim(titanic.data)[1])*100,2))
+
+titanic.data$Fare [titanic.data$Fare == 0 & !is.na(titanic.data$Fare)]<- NA
+
+
+```
+Para los  atributo __Fare__ y __Age__ realizamos un análisis de proporción de valores faltantes. Para el caso del atributo __Fare__, existe 18 caso con valor faltante con formato vacío (NA), con una proporción del 1.38%; Y para el atributo __Age__, existe 263 casos con valores faltantes con formato vacío (NA), con una proporción del 20.09%; Debido a que los datos presente en esta variable están un poco dispersos, utilizaremos métodos probalísticos para predecir los valores faltantes.
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+#library(VIM)
+if(!require(VIM)){
+    #install.packages('VIM', repos='http://cran.us.r-project.org')
+    library(VIM)
+}
+data.frame(Total=sort(colSums(is.na(titanic.data)), decreasing = TRUE),Porcentaje = sort(round(colMeans(is.na(titanic.data))*100, digits = 2), decreasing = TRUE))[c("Fare","Age"),]
+
+# Para predecir los valores faltantes utilizaremos el metodo kNN
+titanic.data.imp <- kNN(titanic.data)
+
+# Imputamos los valores faltantes
+titanic.data$Age <- titanic.data.imp$Age # Age
+titanic.data$Fare <- titanic.data.imp$Fare #Fare
+rm(titanic.data.imp)
+```
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Verificar si existen variables con valores faltantes
+hasValoresFaltantes(titanic.data)
+
+```
+
 
 ### Identificación y tratamiento de valores extremos
 
