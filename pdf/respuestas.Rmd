@@ -176,11 +176,11 @@ summary(titanic.data)
 
 ### Selección de los datos
 
-La gran mayoría de las variables contenidas en el conjunto de datos corresponde con características de los pasajeros que abordaron el Titanic, por lo que serán tenidas en cuenta para realizar nuestro análisis. Sin embargo, podremos prescindir de las variables (**PassengerId**,**Name**) dado que estos atributos no aportan una carasterisitica al pasajero, y no influye en la resolución de nuestro problema.
+La gran mayoría de las variables contenidas en el conjunto de datos corresponde con características de los pasajeros que abordaron el Titanic, por lo que serán tenidas en cuenta para realizar nuestro análisis. Sin embargo, podremos prescindir de las variables (**PassengerId**,**Name** y **Ticket**) dado que estos atributos no aportan una carasterisitica al pasajero, y no influye en la resolución de nuestro problema.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Eliminamos del dataset las variables "PassengerId" y "Name"
-titanic.data <- titanic.data[,!(colnames(titanic.data) %in% c("PassengerId","Name"))]
+titanic.data <- titanic.data[,!(colnames(titanic.data) %in% c("PassengerId","Name","Ticket"))]
 
 # Verificamos la estructura del dataset
 summary(titanic.data)
@@ -295,14 +295,15 @@ Para el  atributo __Cabin__ realizamos un análisis de proporción de valores fa
 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-data.frame(Total=sort(colSums(titanic.data == ""), decreasing = TRUE),Porcentaje = sort(round(colMeans(titanic.data == "")*100, digits = 2), decreasing = TRUE))["Cabin",]
+data.frame(Total=sort(colSums(titanic.data == ""), decreasing = TRUE),
+           Porcentaje = sort(round(colMeans(titanic.data == "")*100, digits = 2), decreasing = TRUE))["Cabin",]
 
 # Eliminamos la variable Cabin
 titanic.data <- titanic.data[, !(names(titanic.data) %in% c("Cabin"))]
 
 ```
 
-Como podemos observar las variables __SibSp__, __Parch__ y __Fare__, presenta datos con valores igual a cero, pero para las variables __SibSp__, __Parch__ este valor cero significa que no tiene no tienen familiares abordo.
+Como podemos observar las variables __SibSp__, __Parch__ y __Fare__, presenta datos con valores igual a cero, pero para las variables __SibSp__, __Parch__ este valor cero significa que no tienen familiares abordo, de acuerdo a esto el valor cero tiene significado para los datos, y no serán gestionados.
 
 Para la variable __Fare__ los valores ceros podria significar un error de datos faltantes, ya que tienen un numero de ticket asignado, o tambien podriamos decir que este cero equivale a que estos ticket fueron entregados por un premio. Para esta actividad asumiremos que es un error y lo consideraremos como valores faltantes.
 
@@ -311,7 +312,9 @@ Calculamos la proporciona de valores ceros en la variable __Fare__, y los rempla
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 
 # Proporcion en 
-data.frame(Var = c("Fare"),Total = length(titanic.data$Fare[titanic.data$Fare == 0 & !is.na(titanic.data$Fare)]),Porcentaje = round((length(titanic.data$Fare[titanic.data$Fare == 0 & !is.na(titanic.data$Fare)])/dim(titanic.data)[1])*100,2))
+data.frame(Var = c("Fare"),
+           Total = length(titanic.data$Fare[titanic.data$Fare == 0 & !is.na(titanic.data$Fare)]),
+           Porcentaje = round((length(titanic.data$Fare[titanic.data$Fare == 0 & !is.na(titanic.data$Fare)])/dim(titanic.data)[1])*100,2))
 
 titanic.data$Fare [titanic.data$Fare == 0 & !is.na(titanic.data$Fare)]<- NA
 
@@ -344,8 +347,75 @@ hasValoresFaltantes(titanic.data)
 ```
 
 
+
 ### Identificación y tratamiento de valores extremos
 
+Los valores extremos (outliers) son aquellos datos que se encuentran muy alejados de la distribución normal de una variable o población. Con este análisis queremos identificar si el dataset contiene observaciones que están alejadas de su distribución normal, con el fin de evitar que estos valores puedan afectar de forma adversa los resultados de los análisis posteriores, al incrementar el error en la varianza de los datos y sesgar significativamente los cálculos y estimaciones.
+
+Para identificar estos valores en el dataset, realizaremos un análisis por cuartiles, para las variables __Age__ y __Fare__. Debido a que el resto de variables pueden ser de tipo categóricas o texto no las incluiremos en este análisis.
+
+Realizaremos un análisis de valores extremos para la variable numérica __Age__, realizando un análisis por quartiles:
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# generar los quartiles que representan la distribución del conjunto de datos
+summary(titanic.data$Age)
+
+## Calculamos la relación inter quartil (IQR), Q3 - Q1 = IQR()
+print(paste("Relación inter quartil (IQR): ",IQR(titanic.data$Age)),quote = FALSE)
+
+# Grafico de boxplot
+gf.boxplot <- boxplot(titanic.data$Age, main="Boxplot de la edad (Age)",
+ylab="Age",col = "bisque")
+```
+
+Al inspeccionar las estadísticas arrojadas, para la variable __Age__, el valor mínimo es 0.17 y el Máximo es 80. Si analisamos  la diferencia entre Q1 y el Mínimo es de 20.83, y la diferencia entre Q3 y el Máximo es 42; cómo podemos ver la diferencia de Q3 y el máximo es mayor que la diferencias entre Q1 y el mínimo. Estos nos indican que el 25% de los valores superiores es tan más dispersos, que el 75% restante.
+
+Al analizar el grafico de diagrama de cajas (Boxplot), se observa que no hay valores atípicos en el extremo inferior, y por eso el bigote inferior se extiende hasta el valor mínimo, 0.17. En cambio en el extremo superior vemos varios valores atípicos, representados por unos círculos sobre el bigote superior.  
+
+Para detectar los valores atípicos, los bigotes se extendieron hasta un $Mínimo = Q1 - 1.5*IQR$, por debajo de Q1 y hasta un $Máximo = Q3 + 1.5*IQR$, por encima de Q3. Donde __IQR = 17__, __Q1 = 21__ y __Q3 = 38__; Entonces el $Mínimo=21–1.5*17=-4.5$, donde todos los valores menores a este valor son considerados atípicos, en nuestro caso como no hay valores menores que este, por eso el bigote se extiende hasta el mínimo valor de la variable; Los valores mayores al $Máximo=38+1.5*17=63.5$ serán considerados atípicos, que son los valores representados en el grafico por los puntos negros.  
+
+Considerando lo anterior, a continuación se muestran los valores atípicos para la variable __Age__. __Donde Age > 63.5__:
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+#Valores extremos encontrados en la variable Age donde Age > 63.5
+sort(gf.boxplot$out, decreasing = FALSE)
+
+```
+
+No obstante, si revisamos los anteriores datos, las edades de los pasajeros comprendidas entre 64 y 80, son valores que perfectamente pueden darse. Es por ello que el manejo de estos valores extremos consistirá en simplemente dejarlos como actualmente están recogidos.
+
+Realizaremos un análisis de valores extremos para la variable numérica __Fare__, realizando un análisis por quartiles:
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# generar los quartiles que representan la distribución del conjunto de datos
+summary(titanic.data$Fare)
+
+## Calculamos la relación inter quartil (IQR), Q3 - Q1 = IQR()
+print(paste("Relación inter quartil (IQR): ",IQR(titanic.data$Fare)),quote = FALSE)
+
+# Grafico de boxplot
+gf.boxplot <- boxplot(titanic.data$Fare, main="Boxplot del precio del Boleto (Fare)",
+ylab="Fare",col = "bisque")
+```
+
+Al inspeccionar las estadísticas arrojadas, para la variable __Fare__, el valor mínimo es 3.17 y el Máximo es 512.33. Si analisamos  la diferencia entre Q1 y el Mínimo es de 4.75, y la diferencia entre Q3 y el Máximo es 481.05; cómo podemos ver la diferencia de Q3 y el máximo es mayor que la diferencias entre Q1 y el mínimo. Estos nos indican que el 25% de los valores superiores es tan más dispersos, que el 75% restante.
+
+Al analizar el grafico de diagrama de cajas (Boxplot), se observa que no hay valores atípicos en el extremo inferior, y por eso el bigote inferior se extiende hasta el valor mínimo, 3.17. En cambio en el extremo superior vemos varios valores atípicos, representados por unos círculos sobre el bigote superior.  
+
+Para detectar los valores atípicos, los bigotes se extendieron hasta un $Mínimo = Q1 - 1.5*IQR$, por debajo de Q1 y hasta un $Máximo = Q3 + 1.5*IQR$, por encima de Q3. Donde __IQR = 23.35__, __Q1 = 7.93__ y __Q3 = 31.28__; Entonces el $Mínimo=7.93–1.5*23.35=-27.01$, donde todos los valores menores a este valor son considerados atípicos, en nuestro caso como no hay valores menores que este, por eso el bigote se extiende hasta el mínimo valor de la variable; Los valores mayores al $Máximo=31.28+1.5*23.35=66.31$ serán considerados atípicos, que son los valores representados en el grafico por los puntos negros.  
+
+Considerando lo anterior, a continuación se muestran los valores atípicos para la variable __Fare__. __Donde Fare > 66.31__:
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+#Valores extremos encontrados en la variable Fare donde Fare > 66.31
+sort(gf.boxplot$out, decreasing = FALSE)
+```
+
+No obstante, si revisamos los anteriores datos, y miramos de forma aleatoria los precios de los Ticket podemos ver que los precios mas altos corresponde a los pasajeros de clase alta (Pclass = "Upper"), y son valores que perfectamente pueden darse. Es por ello que el manejo de estos valores extremos consistirá en simplemente dejarlos como actualmente están recogidos.
+
+## Análisis de los datos
+
+## Representación de los resultados a partir de tablas y gráficas.
 
 ## Código fuente y dataset
 
