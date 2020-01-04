@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.10.29)  3 JAN 2020 21:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.10.29)  4 JAN 2020 02:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -776,6 +776,42 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \fb@frh=\dimen126
 \FrameRule=\dimen127
 \FrameSep=\dimen128
+) (/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
+\LTleft=\skip49
+\LTright=\skip50
+\LTpre=\skip51
+\LTpost=\skip52
+\LTchunksize=\count118
+\LTcapwidth=\dimen129
+\LT@head=\box29
+\LT@firsthead=\box30
+\LT@foot=\box31
+\LT@lastfoot=\box32
+\LT@cols=\count119
+\LT@rows=\count120
+\c@LT@tables=\count121
+\c@LT@chunks=\count122
+\LT@p@ftn=\toks25
+) (/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2005/04/14 v1.61803 publication quality tables
+\heavyrulewidth=\dimen130
+\lightrulewidth=\dimen131
+\cmidrulewidth=\dimen132
+\belowrulesep=\dimen133
+\belowbottomsep=\dimen134
+\aboverulesep=\dimen135
+\abovetopsep=\dimen136
+\cmidrulesep=\dimen137
+\cmidrulekern=\dimen138
+\defaultaddspace=\dimen139
+\@cmidla=\count123
+\@cmidlb=\count124
+\@aboverulesep=\dimen140
+\@belowrulesep=\dimen141
+\@thisruleclass=\count125
+\@lastruleclass=\count126
+\@thisrulewidth=\dimen142
 ) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
@@ -787,8 +823,8 @@ File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
 Package graphics Info: Driver file: pdftex.def on input line 95.
 )
-\Gin@req@height=\dimen129
-\Gin@req@width=\dimen130
+\Gin@req@height=\dimen143
+\Gin@req@width=\dimen144
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grffile.sty
 Package: grffile 2012/04/05 v1.16 Extended file name support for graphics (HO)
 Package grffile Info: Option `multidot' is set to `true'.
@@ -799,20 +835,20 @@ Package grffile Info: \Gin@ii of package `graphicx' fixed on input line 486.
 Package: parskip 2001/04/09 non-zero parskip adjustments
 ) (/usr/share/texlive/texmf-dist/tex/latex/titling/titling.sty
 Package: titling 2009/09/04 v2.1d maketitle typesetting
-\thanksmarkwidth=\skip49
-\thanksmargin=\skip50
-\droptitle=\skip51
+\thanksmarkwidth=\skip53
+\thanksmargin=\skip54
+\droptitle=\skip55
 ) (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2016/02/24 3.9q The Babel package
 (/usr/share/texlive/texmf-dist/tex/generic/babel-spanish/spanish.ldf
 Language: spanish.ldf 2016/01/15 v5.0o Spanish support from the babel system
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
 File: babel.def 2016/02/24 3.9q Babel common definitions
-\babel@savecnt=\count118
-\U@D=\dimen131
+\babel@savecnt=\count127
+\U@D=\dimen145
 )
-\es@quottoks=\toks25
-\es@quotdepth=\count119
+\es@quottoks=\toks26
+\es@quotdepth=\count128
 Package babel Info: Making " an active character on input line 533.
 Package babel Info: Making . an active character on input line 634.
 Package babel Info: Making < an active character on input line 679.
@@ -823,34 +859,34 @@ LaTeX Info: Redefining \% on input line 23.
 )
 \openout1 = `respuestas.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 129.
-LaTeX Font Info:    ... okay on input line 129.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 129.
-LaTeX Font Info:    ... okay on input line 129.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 129.
-LaTeX Font Info:    ... okay on input line 129.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 129.
-LaTeX Font Info:    ... okay on input line 129.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 129.
-LaTeX Font Info:    ... okay on input line 129.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 129.
-LaTeX Font Info:    ... okay on input line 129.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 129.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 129.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 130.
+LaTeX Font Info:    ... okay on input line 130.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 130.
+LaTeX Font Info:    ... okay on input line 130.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 130.
+LaTeX Font Info:    ... okay on input line 130.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 130.
+LaTeX Font Info:    ... okay on input line 130.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 130.
+LaTeX Font Info:    ... okay on input line 130.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 130.
+LaTeX Font Info:    ... okay on input line 130.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 130.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 130.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 129.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 129.
-LaTeX Font Info:    ... okay on input line 129.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 129.
-LaTeX Font Info:    ... okay on input line 129.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 129.
+LaTeX Font Info:    ... okay on input line 130.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 130.
+LaTeX Font Info:    ... okay on input line 130.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 130.
+LaTeX Font Info:    ... okay on input line 130.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 130.
 (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Info: Redefining \microtypecontext on input line 129.
+LaTeX Info: Redefining \microtypecontext on input line 130.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
@@ -898,35 +934,35 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\AtBeginShipoutBox=\box29
-Package hyperref Info: Link coloring OFF on input line 129.
+\AtBeginShipoutBox=\box33
+Package hyperref Info: Link coloring OFF on input line 130.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count120
+\c@section@level=\count129
 )
-LaTeX Info: Redefining \ref on input line 129.
-LaTeX Info: Redefining \pageref on input line 129.
-LaTeX Info: Redefining \nameref on input line 129.
+LaTeX Info: Redefining \ref on input line 130.
+LaTeX Info: Redefining \pageref on input line 130.
+LaTeX Info: Redefining \nameref on input line 130.
 (./respuestas.out) (./respuestas.out)
 \@outlinefile=\write4
 \openout4 = `respuestas.out'.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count121
-\scratchdimen=\dimen132
-\scratchbox=\box30
-\nofMPsegments=\count122
-\nofMParguments=\count123
-\everyMPshowfont=\toks26
-\MPscratchCnt=\count124
-\MPscratchDim=\dimen133
-\MPnumerator=\count125
-\makeMPintoPDFobject=\count126
-\everyMPtoPDFconversion=\toks27
+\scratchcounter=\count130
+\scratchdimen=\dimen146
+\scratchbox=\box34
+\nofMPsegments=\count131
+\nofMParguments=\count132
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count133
+\MPscratchDim=\dimen147
+\MPnumerator=\count134
+\makeMPintoPDFobject=\count135
+\everyMPtoPDFconversion=\toks28
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
@@ -940,8 +976,8 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Info: Redefining \. on input line 129.
-LaTeX Info: Redefining \% on input line 129.
+LaTeX Info: Redefining \. on input line 130.
+LaTeX Info: Redefining \% on input line 130.
 (./respuestas.toc
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
@@ -985,158 +1021,263 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 1448) in paragraph at lines 198--202
+Underfull \hbox (badness 1448) in paragraph at lines 199--203
 []\T1/lmr/m/n/10 (+20) Cargamos el con-jun-to de da-tos que se en-cuen-tran en 
 los ar-chi-vos \T1/lmr/bx/n/10 train.csv\T1/lmr/m/n/10 (+20) , \T1/lmr/bx/n/10 
 test.csv \T1/lmr/m/n/10 (+20) y \T1/lmr/bx/n/10 gen-
  []
 
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 207.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 208.
 
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 210.
-LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 211
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 211.
+LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 212
 .
 (/usr/share/texmf/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [2] [3]
-Underfull \hbox (badness 10000) in paragraph at lines 347--349
+Underfull \hbox (badness 10000) in paragraph at lines 348--350
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 351--353
+Underfull \hbox (badness 10000) in paragraph at lines 352--354
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 353--356
+Underfull \hbox (badness 10000) in paragraph at lines 354--357
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 356--358
+Underfull \hbox (badness 10000) in paragraph at lines 357--359
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 358--360
+Underfull \hbox (badness 10000) in paragraph at lines 359--361
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 360--362
+Underfull \hbox (badness 10000) in paragraph at lines 361--363
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 362--364
+Underfull \hbox (badness 10000) in paragraph at lines 363--365
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 364--366
+Underfull \hbox (badness 10000) in paragraph at lines 365--367
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 366--368
+Underfull \hbox (badness 10000) in paragraph at lines 367--369
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 368--371
+Underfull \hbox (badness 10000) in paragraph at lines 369--372
 
  []
 
 [4] [5] [6] [7] [8] [9] [10]
-<respuestas_files/figure-latex/unnamed-chunk-17-1.pdf, id=127, 436.63126pt x 22
+<respuestas_files/figure-latex/unnamed-chunk-17-1.pdf, id=133, 436.63126pt x 22
 7.85126pt>
 File: respuestas_files/figure-latex/unnamed-chunk-17-1.pdf Graphic file (type p
 df)
 <use respuestas_files/figure-latex/unnamed-chunk-17-1.pdf>
 Package pdftex.def Info: respuestas_files/figure-latex/unnamed-chunk-17-1.pdf u
-sed on input line 876.
+sed on input line 892.
 (pdftex.def)             Requested size: 436.63019pt x 227.8507pt.
 
-LaTeX Warning: Command \' invalid in math mode on input line 893.
+LaTeX Warning: Command \' invalid in math mode on input line 909.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 894.
+LaTeX Warning: Command \' invalid in math mode on input line 910.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 896.
+LaTeX Warning: Command \' invalid in math mode on input line 912.
 
 
-LaTeX Warning: Command \textendash invalid in math mode on input line 896.
+LaTeX Warning: Command \textendash invalid in math mode on input line 912.
 
 
-LaTeX Warning: Command \' invalid in math mode on input line 899.
+LaTeX Warning: Command \' invalid in math mode on input line 915.
 
 [11 <./respuestas_files/figure-latex/unnamed-chunk-17-1.pdf>]
-<respuestas_files/figure-latex/unnamed-chunk-19-1.pdf, id=143, 436.63126pt x 22
+<respuestas_files/figure-latex/unnamed-chunk-19-1.pdf, id=149, 436.63126pt x 22
 7.85126pt>
 File: respuestas_files/figure-latex/unnamed-chunk-19-1.pdf Graphic file (type p
 df)
 <use respuestas_files/figure-latex/unnamed-chunk-19-1.pdf>
 Package pdftex.def Info: respuestas_files/figure-latex/unnamed-chunk-19-1.pdf u
-sed on input line 957.
+sed on input line 973.
 (pdftex.def)             Requested size: 436.63019pt x 227.8507pt.
-
-LaTeX Warning: Command \' invalid in math mode on input line 974.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 975.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 977.
-
-
-LaTeX Warning: Command \textendash invalid in math mode on input line 977.
-
-
-LaTeX Warning: Command \' invalid in math mode on input line 980.
-
 [12 <./respuestas_files/figure-latex/unnamed-chunk-19-1.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1040.
+
+LaTeX Warning: Command \' invalid in math mode on input line 990.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 991.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 993.
+
+
+LaTeX Warning: Command \textendash invalid in math mode on input line 993.
+
+
+LaTeX Warning: Command \' invalid in math mode on input line 996.
+
 [13]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1040.
+<respuestas_files/figure-latex/unnamed-chunk-22-1.pdf, id=171, 453.695pt x 313.
+17pt>
+File: respuestas_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (type p
+df)
+<use respuestas_files/figure-latex/unnamed-chunk-22-1.pdf>
+Package pdftex.def Info: respuestas_files/figure-latex/unnamed-chunk-22-1.pdf u
+sed on input line 1103.
+(pdftex.def)             Requested size: 453.6939pt x 313.16922pt.
+[14] [15 <./respuestas_files/figure-latex/unnamed-chunk-22-1.pdf>]
+<respuestas_files/figure-latex/unnamed-chunk-25-1.pdf, id=190, 453.695pt x 313.
+17pt>
+File: respuestas_files/figure-latex/unnamed-chunk-25-1.pdf Graphic file (type p
+df)
+<use respuestas_files/figure-latex/unnamed-chunk-25-1.pdf>
+Package pdftex.def Info: respuestas_files/figure-latex/unnamed-chunk-25-1.pdf u
+sed on input line 1156.
+(pdftex.def)             Requested size: 453.6939pt x 313.16922pt.
+[16 <./respuestas_files/figure-latex/unnamed-chunk-25-1.pdf>]
+<respuestas_files/figure-latex/unnamed-chunk-28-1.pdf, id=202, 453.695pt x 315.
+1775pt>
+File: respuestas_files/figure-latex/unnamed-chunk-28-1.pdf Graphic file (type p
+df)
+<use respuestas_files/figure-latex/unnamed-chunk-28-1.pdf>
+Package pdftex.def Info: respuestas_files/figure-latex/unnamed-chunk-28-1.pdf u
+sed on input line 1207.
+(pdftex.def)             Requested size: 453.6939pt x 315.17673pt.
+[17 <./respuestas_files/figure-latex/unnamed-chunk-28-1.pdf>]
+<respuestas_files/figure-latex/unnamed-chunk-31-1.pdf, id=214, 453.695pt x 313.
+17pt>
+File: respuestas_files/figure-latex/unnamed-chunk-31-1.pdf Graphic file (type p
+df)
+<use respuestas_files/figure-latex/unnamed-chunk-31-1.pdf>
+Package pdftex.def Info: respuestas_files/figure-latex/unnamed-chunk-31-1.pdf u
+sed on input line 1260.
+(pdftex.def)             Requested size: 453.6939pt x 313.16922pt.
+
+<respuestas_files/figure-latex/unnamed-chunk-34-1.pdf, id=215, 453.695pt x 313.
+17pt>
+File: respuestas_files/figure-latex/unnamed-chunk-34-1.pdf Graphic file (type p
+df)
+<use respuestas_files/figure-latex/unnamed-chunk-34-1.pdf>
+Package pdftex.def Info: respuestas_files/figure-latex/unnamed-chunk-34-1.pdf u
+sed on input line 1303.
+(pdftex.def)             Requested size: 453.6939pt x 313.16922pt.
+[18 <./respuestas_files/figure-latex/unnamed-chunk-31-1.pdf>] [19 <./respuestas
+_files/figure-latex/unnamed-chunk-34-1.pdf>]
+<respuestas_files/figure-latex/unnamed-chunk-37-1.pdf, id=239, 459.7175pt x 315
+.1775pt>
+File: respuestas_files/figure-latex/unnamed-chunk-37-1.pdf Graphic file (type p
+df)
+<use respuestas_files/figure-latex/unnamed-chunk-37-1.pdf>
+Package pdftex.def Info: respuestas_files/figure-latex/unnamed-chunk-37-1.pdf u
+sed on input line 1355.
+(pdftex.def)             Requested size: 459.74442pt x 315.19595pt.
+
+<respuestas_files/figure-latex/unnamed-chunk-37-2.pdf, id=240, 459.7175pt x 315
+.1775pt>
+File: respuestas_files/figure-latex/unnamed-chunk-37-2.pdf Graphic file (type p
+df)
+<use respuestas_files/figure-latex/unnamed-chunk-37-2.pdf>
+Package pdftex.def Info: respuestas_files/figure-latex/unnamed-chunk-37-2.pdf u
+sed on input line 1364.
+(pdftex.def)             Requested size: 459.74442pt x 315.19595pt.
+[20 <./respuestas_files/figure-latex/unnamed-chunk-37-1.pdf>] [21 <./respuestas
+_files/figure-latex/unnamed-chunk-37-2.pdf>]
+<respuestas_files/figure-latex/unnamed-chunk-42-1.pdf, id=263, 459.7175pt x 313
+.17pt>
+File: respuestas_files/figure-latex/unnamed-chunk-42-1.pdf Graphic file (type p
+df)
+<use respuestas_files/figure-latex/unnamed-chunk-42-1.pdf>
+Package pdftex.def Info: respuestas_files/figure-latex/unnamed-chunk-42-1.pdf u
+sed on input line 1460.
+(pdftex.def)             Requested size: 459.7304pt x 313.17877pt.
+[22 <./respuestas_files/figure-latex/unnamed-chunk-42-1.pdf>]
+<respuestas_files/figure-latex/unnamed-chunk-42-2.pdf, id=275, 459.7175pt x 313
+.17pt>
+File: respuestas_files/figure-latex/unnamed-chunk-42-2.pdf Graphic file (type p
+df)
+<use respuestas_files/figure-latex/unnamed-chunk-42-2.pdf>
+Package pdftex.def Info: respuestas_files/figure-latex/unnamed-chunk-42-2.pdf u
+sed on input line 1469.
+(pdftex.def)             Requested size: 459.7304pt x 313.17877pt.
+[23 <./respuestas_files/figure-latex/unnamed-chunk-42-2.pdf>] [24] [25]
+<respuestas_files/figure-latex/unnamed-chunk-50-1.pdf, id=298, 383.4325pt x 209
+.78375pt>
+File: respuestas_files/figure-latex/unnamed-chunk-50-1.pdf Graphic file (type p
+df)
+<use respuestas_files/figure-latex/unnamed-chunk-50-1.pdf>
+Package pdftex.def Info: respuestas_files/figure-latex/unnamed-chunk-50-1.pdf u
+sed on input line 1677.
+(pdftex.def)             Requested size: 383.43156pt x 209.78322pt.
+[26 <./respuestas_files/figure-latex/unnamed-chunk-50-1.pdf>]
+<respuestas_files/figure-latex/unnamed-chunk-54-1.pdf, id=310, 383.4325pt x 209
+.78375pt>
+File: respuestas_files/figure-latex/unnamed-chunk-54-1.pdf Graphic file (type p
+df)
+<use respuestas_files/figure-latex/unnamed-chunk-54-1.pdf>
+Package pdftex.def Info: respuestas_files/figure-latex/unnamed-chunk-54-1.pdf u
+sed on input line 1773.
+(pdftex.def)             Requested size: 383.43156pt x 209.78322pt.
+[27 <./respuestas_files/figure-latex/unnamed-chunk-54-1.pdf>] [28]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1956.
+[29] [30]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1956.
 (./respuestas.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1040.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1040.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1956.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1956.
 
 Package rerunfilecheck Info: File `respuestas.out' has not changed.
-(rerunfilecheck)             Checksum: 654F848460231EBCB216755F414AC2DE;2176.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1040.
+(rerunfilecheck)             Checksum: 69B7057FDE5887C2A299B1CF5CCEFBA5;3055.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1956.
  ) 
 Here is how much of TeX's memory you used:
- 13648 strings out of 493029
- 195967 string characters out of 6136233
- 313155 words of memory out of 5000000
- 16872 multiletter control sequences out of 15000+600000
- 47076 words of font info for 86 fonts, out of 8000000 for 9000
+ 13870 strings out of 493029
+ 201163 string characters out of 6136233
+ 316534 words of memory out of 5000000
+ 17054 multiletter control sequences out of 15000+600000
+ 47408 words of font info for 90 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 31i,5n,35p,673b,460s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/en
-c/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/s
-hare/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/l
-m-ec.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/f
-onts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.
-pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/t
-ype1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></u
-sr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/p
-ublic/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/sh
-are/texmf/fonts/type1/public/lm/lmtti10.pfb>
-Output written on respuestas.pdf (13 pages, 269176 bytes).
+ 31i,6n,35p,874b,460s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{apartado25} has been referenced but does not exis
+t, replaced by a fixed one
+
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/
+dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/sha
+re/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-
+ec.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fon
+ts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pf
+b></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/typ
+e1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr
+/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/pub
+lic/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/shar
+e/texmf/fonts/type1/public/lm/lmtti10.pfb>
+Output written on respuestas.pdf (30 pages, 367470 bytes).
 PDF statistics:
- 212 PDF objects out of 1000 (max. 8388607)
- 179 compressed objects within 2 object streams
- 35 named destinations out of 1000 (max. 500000)
- 8299 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 392 PDF objects out of 1000 (max. 8388607)
+ 307 compressed objects within 4 object streams
+ 59 named destinations out of 1000 (max. 500000)
+ 8362 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -284,7 +284,7 @@ arrange(data.frame(round(prop.table(table(titanic.data$Embarked)),4)*100),-Freq)
 
 # actualizamos los valores faltantes con el valor más frecuente
 titanic.data$Embarked[titanic.data$Embarked=="?"] <- "Southampton"
-
+titanic.data$Embarked <- droplevels(titanic.data$Embarked) #Eliminamos los niveles no utilizados (?)
 ```
 
 Para el  atributo __Cabin__ realizamos un análisis de proporción de valores faltantes. Existen 1014 casos con valor faltante con formato vacío (""), con una proporción del 77.46%, esto corresponde a más de la mitad de las observaciones. Si intentamos completar los valores faltantes, por alguna de las técnicas de imputación de valores perdidos, debido a la alta cantidad de valores faltantes en este atributo, nos puede generar sesgos en los datos de este atributo. De acuerdo a esto, se decide eliminar el atributo __Cabin__ del dataset en estudio.
@@ -314,7 +314,7 @@ data.frame(Var = c("Fare"),
 
 titanic.data$Fare [titanic.data$Fare == 0 & !is.na(titanic.data$Fare)]<- NA
 
-
+str(titanic.data)
 ```
 Para los  atributo __Fare__ y __Age__ realizamos un análisis de proporción de valores faltantes. Para el caso del atributo __Fare__, existe 18 caso con valor faltante con formato vacío (NA), con una proporción del 1.38%; Y para el atributo __Age__, existe 263 casos con valores faltantes con formato vacío (NA), con una proporción del 20.09%; Debido a que los datos presente en esta variable están un poco dispersos, utilizaremos métodos probalísticos para predecir los valores faltantes.
 
@@ -409,11 +409,433 @@ sort(gf.boxplot$out, decreasing = FALSE)
 
 No obstante, si revisamos los anteriores datos, y miramos de forma aleatoria los precios de los Ticket podemos ver que los precios mas altos corresponde a los pasajeros de clase alta (Pclass = "Upper"), y son valores que perfectamente pueden darse. Es por ello que el manejo de estos valores extremos consistirá en simplemente dejarlos como actualmente están recogidos.
 
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+# Guardamos los datos de nuestro dataset (data.frame)  aun archivo en formato CSV
+write.csv(titanic.data, "../datos/titanic.final.csv")
+```
+
+
 ## Análisis de los datos
 
-## Representación de los resultados a partir de tablas y gráficas.
+### Selección de los gurpos de datos que se quieren analizar / comparar
 
-## Código fuente y dataset
+Vamos a realizar un análisis preliminar de las variables, para determinar su normalidad y su relación con survived, esto nos ayudará a realizar ejercicios posteriores para tratar de predecir qué pasajeros se salvaron del titanic y cuales no.
+
+Las variables que vamos a analizar son sex, pclass, age, sibsp,parch,embarked,fare y su relación con survived, que es la variable dependiente que tratamos de predecir. El resto de variables como id, name, ticket o cabin son datos individuales de cada pasajero que no parece que vayan a aportar una información valiosa.
+
+### Comprobación de la normalidad y homogeneidad de la varianza.
+
+[Ver apartado 2.5](#apartado25)
+
+### Aplicación de pruebas estadísticas para comparar los grupos de datos. En función de los datos y el objetivo del estudio, aplicar pruebas de contraste de hipótesis, correlaciones, regresiones, etc. Aplicar al menos tres métodos de análisis diferentes.  
+
+[Ver apartado 2.5](#apartado25)
+
+
+## Representación de los resultados a partir de tablas y gráficas.  
+<a name="apartado25"></a>
+Por claridad en el informe, en este apartado se compilan los 3 puntos anteriores (apartados 2.4.2 y 2.4.3) ya que se realizan las pruebas estadísticas así como los métodos de análisis pertinentes para determinar qué probabilidades tiene cada persona de haber sobrevivido al hundimiento del Titanic, además se representan las tablas y gráficas pertinentes para una mejor visualización de cada apartado del análisis.
+
+Vamos a comenzar analizando la variable sex con respecto a survived, en este caso podemos realizar una tabla de contingencia. Al ser 2 variables categóricas no tiene sentido analizar la distribución.
+
+
+```{r message= FALSE, warning=FALSE}
+ggplot(titanic.data,aes(Sex,fill=Survived))+geom_bar() +labs(x="Sex", y="Passengers")+ guides(fill=guide_legend(title=""))+ggtitle("Survived by Sex")
+```
+
+
+
+  
+Vemos cómo el porentaje de mujeres supervivientes es mucho mayor que el de hombres, esto lo podemos comprobar con una tabla de contingencia.
+
+```{r message= FALSE, warning=FALSE}
+tblSex<-table(titanic.data$Survived,titanic.data$Sex)
+tblSex
+```  
+
+Efectivamente vemos cómo el sexo puede ser un factor determinante a la hora de realizar una predicción sobre la supervivencia.
+
+Vamos a ejecutar el test chi-square para asegurar que existen diferencias significativas entre los grupos.
+
+```{r message= FALSE, warning=FALSE}
+ chisq.test(tblSex)
+```
+  
+Efectivamente el test chi-square arroja un p-value bastante pequeño, lo que nos indica que existe una correlación entre estas variables, con lo que el sexo nos puede ayudar a discernir si una persona fue superviviente del titanic o no.
+
+Hacemos el mismo análisis con la variable PClass.
+
+```{r message= FALSE, warning=FALSE}
+library(ggplot2)
+ggplot(titanic.data,aes(Pclass,fill=Survived))+geom_bar() +labs(x="Pclass", y="Passengers")+ guides(fill=guide_legend(title=""))+ ggtitle("Survived by Pclass")
+```
+
+
+Vemos cómo existe también una diferencia grande en el porcentaje de supervivientes según el nivel económico de los pasajeros.
+
+Vemos la tabla de contingencia.
+
+```{r message= FALSE, warning=FALSE}
+tblClass<-table(titanic.data$Survived,titanic.data$Pclass)
+tblClass
+``` 
+
+Ejecutamos el test chi-squared para ver la independencia entre los casos.
+
+```{r message= FALSE, warning=FALSE}
+ chisq.test(tblClass)
+```
+
+En este caso también observamos diferencias significativas en la supervivencia según la variable class, el p-value de nuevo nos indica que debemos rechazar la hipótesis nula de independencia, con lo que vemos cierta correlación entre PClass y Survived.
+
+
+Analizamos ahora la variable Sibsp de la misma forma.
+
+
+```{r message= FALSE, warning=FALSE}
+ggplot(titanic.data,aes(SibSp      ,fill=Survived))+geom_bar() +labs(x="Sibsp", y="Passengers")+ guides(fill=guide_legend(title=""))+ggtitle("Survived by SibSp")
+```
+
+
+Atendiendo al gráfico, vemos diferencias significativas en el porcentaje de supervivientes según el número de familiares que están en el barco.
+
+Vamos a realizar al igual que en los casos anteriores la tabla de contingencia y el test chi-square.
+
+
+```{r message= FALSE, warning=FALSE}
+
+tblSibsp<-table(titanic.data$Survived,titanic.data$SibSp)
+tblSibsp
+```
+
+Efectivamente se observa cómo el porcentaje de supervivencia varía bastante según el número de familiares en el barco.
+
+```{r message= FALSE, warning=FALSE}
+chisq.test(tblSibsp)
+```
+
+De nuevo el test chi-squared arroja cierta correlación entre estas variables, con lo que el número de parientes también puede ser una variable importante a la hora de predecir la supervivencia de una persona.
+
+
+Repetimos el mismo análisis con la variable Parch (número de padres/hijos)
+
+```{r message= FALSE, warning=FALSE}
+ggplot(titanic.data,aes(Parch,fill=Survived))+geom_bar() +labs(x="Parch", y="Passengers")+ guides(fill=guide_legend(title=""))+ggtitle("Survived by Parch")
+```
+
+```{r message= FALSE, warning=FALSE}
+tblParch<-table(titanic.data$Survived,titanic.data$Parch)
+tblParch
+``` 
+
+
+Repetimos el test chi-squared 
+
+```{r message= FALSE, warning=FALSE}
+chisq.test(tblParch)
+```
+
+Estos datos también indican diferencias significativas en el la supervivencia con respecto al número de familiares.  
+
+Repetimos el mismo análisis con el puerto de embarque
+
+```{r message= FALSE, warning=FALSE}
+ggplot(titanic.data,aes(Embarked,fill=Survived))+geom_bar() +labs(x="Embarked", y="Passengers")+ guides(fill=guide_legend(title=""))+ggtitle("Survived by Embarked")
+```
+
+Según el gráfico también existen diferencias significativas en el porcentaje de supervivientes según el puerto de embarque. Vamos a comprobarlo de nuevo con la tabla de contingencia y el test chi-squared.
+
+```{r message= FALSE, warning=FALSE}
+tblEmbarked<-table(titanic.data$Survived,titanic.data$Embarked)
+tblEmbarked
+``` 
+
+
+```{r message= FALSE, warning=FALSE}
+chisq.test(tblEmbarked)
+```
+
+
+El test chi-squared nos dice de nuevo que sí hay una relación entre el puerto de embarque y la supervivencia.  
+
+Vamos a analizar la variable edad, en este caso se trata de una variable continua con lo que analizaremos su distribución y veremos si existen diferencias significativas en la media de edad de los supervivientes y los no supervivientes.
+
+Vemos las distribuciones de la edad de los supervivientes y los no supervivientes en las siguientes gráficas.
+
+```{r message= FALSE, warning=FALSE}
+
+ggplot(titanic.data[titanic.data$Survived=="No",], aes(x=Age)) + 
+  geom_density()+ ggtitle("Non Survivors Density")
+
+ggplot(titanic.data[titanic.data$Survived=="Si",], aes(x=Age)) + 
+  geom_density()+ ggtitle("Survivors Density")
+```
+
+
+Vemos en las gráficas de densidad que ninguna de las 2 sigue una distribución normal. Lo comprobamos con el test de Shapiro Wilk
+```{r message= FALSE, warning=FALSE}
+shapiro.test(titanic.data[titanic.data$Survived=="No",]$Age)
+```
+```{r message= FALSE, warning=FALSE}
+shapiro.test(titanic.data[titanic.data$Survived=="Si",]$Age)
+```
+
+Efectivamente se comprueba que la variable edad no sigue una distribución normal. Vamos a comparar las varianzas entre las edades de ambos grupos.
+
+```{r message= FALSE, warning=FALSE}
+ fligner.test(Age ~ Survived, data = titanic.data) 
+```
+
+El p-value del test sugiere que existe homoceasticidad entre ambos grupos, es decir que la varianza entre las edades de los supervivientes y los no supervivientes es parecida.
+
+
+Dado que existe homoceasticidad entre los grupos y que tenemos un número significativamente alto de muestras, por el teorema del límite central  podemos realizar un test t-student para comprobar las medias entre ambos grupos.
+
+```{r message= FALSE, warning=FALSE}
+
+t.test(Age ~ Survived,data=titanic.data,alternative="two.sided",var.equal=TRUE)
+```
+
+En este caso vemos cómo el p-value es menor a 0.05, con lo que podemos rechazar la hipótesis nula, las medias de edad entre supervivientes y no supervivietnes no son iguales, esto nos dice que la edad puede ser un elemento importante a la hora de clasificar los supervivientes de los no supervivientes.  
+
+Vamos a repetir el mismo análisis con la variable Fare frente a Survived.
+
+```{r message= FALSE, warning=FALSE}
+
+ggplot(titanic.data[titanic.data$Survived=="No",], aes(x=Fare)) + 
+  geom_density()+ ggtitle("Non Survivors Density")
+
+ggplot(titanic.data[titanic.data$Survived=="Si",], aes(x=Fare)) + 
+  geom_density()+ ggtitle("Survivors Density")
+
+
+```
+
+
+
+Vemos claramente que no hay normalidad en estas variables, vamos a realizar el test de homoceasticidad, como en el caso de la edad.
+
+
+
+
+```{r message= FALSE, warning=FALSE}
+ fligner.test(Fare ~ Survived, data = titanic.data) 
+```
+En este caso tampoco se observa homoceasticidad entre ambos grupos, debemos rechazar la hipótesis nula, las varianzas no son parecidas, con lo que para hacer una comparación entre los 2 grupos en este caso debemos usar un test no paramétrico de Wilcoxon ya que son grupos independientes.
+
+
+```{r message= FALSE, warning=FALSE}
+ wilcox.test(Fare ~ Survived, data = titanic.data)
+```
+
+No podemos rechazar la hipótesis nula, vemos que sí se observan diferencias significativas entre las tarifas pagadas por los supervivientes y los no supervivientes.
+
+### Modelos predictivos.
+
+Utilizaremos las variables anteriores para tratar de construir un modelo predictivo, en todas las variables estudiadas se ha observado cierta relación con la variable survived, con lo que en principio las usaremos en nuestros modelos.
+
+Para realizar los análisis pertientes y tratar de obtener un modelo predictivo, vamos a obtener el dataset de test, seleccionando las filas desde 892 hasta 1309.
+
+```{r message= FALSE, warning=FALSE}
+titanic.test<- titanic.data[892:1309,]
+```
+
+Una vez tenemos el dataset de test preparado, vamos a ejecutar una regresión logística sobre los parámetros que hemos elegido, para ver cómo se comporta.
+
+
+```{r message= FALSE, warning=FALSE}
+logit =glm(formula=Survived ~  Sex+Pclass+Age+SibSp+Parch+Embarked+Fare, data=titanic.data[1:891,],family = binomial)
+summary(logit)
+```
+
+Observamos que según el p-value las variables más importantes para diferenciar supervivientes de no supervivientes son Sex, PClass, Age, SibSp.
+
+
+Realizamos una predicción sobre las mismas columnas de test, esto nos dará la probabilidad de supervivencia, consideramos supervivientes los que tengan una probabilidad mayor de 0.5
+
+```{r message= FALSE, warning=FALSE}
+prediction<-predict(logit,newdata=titanic.test[,!(colnames(titanic.test) %in% c("Survived"))],type="response")
+
+surv_prediction = ifelse(prediction>0.5,1,0)
+
+table(surv_prediction)
+```
+
+Para comparar los resultados realizamos la matriz de confusión con los valores que tenemos en test.
+
+```{r message= FALSE, warning=FALSE}
+conf_Matrix<-table(surv_prediction,titanic.test$Survived)
+conf_Matrix
+porcentaje_correcto<-100 * sum(diag(conf_Matrix)) / sum(conf_Matrix)
+porcentaje_correcto
+```
+
+Observamos cómo por este método se han clasificado correctamente 250 no supervivientes y 139 supervivientes. 
+
+Esto hace una fiabilidad de la predicción del 93.06%
+
+Vamos a intentar clasificar y predecir los supervivientes mediante un árbol de decisión. Utilizamos la función rpart.
+
+```{r message= FALSE, warning=FALSE}
+
+library(rpart)
+model_cart<-rpart(Survived~Sex+Pclass+Age+SibSp+Parch+Embarked+Fare,data=titanic.data[1:891,],method="class")
+model_cart
+```
+
+
+Vamos a mostrar el árbol
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+par(xpd = NA)
+
+plot(model_cart)
+text(model_cart,use.n=TRUE)
+```
+
+Vamos a validar este modelo con el set de datos de test:
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+
+predicted.classes <- predict( model_cart, titanic.test[,!(colnames(titanic.test) %in% c("Survived"))], type="class" )
+
+```
+
+Vamos a validar el resultado de la predicción con el árbol de decisión
+
+```{r message= FALSE, warning=FALSE}
+conf_Matrix<-table(predicted.classes,titanic.test$Survived)
+conf_Matrix
+porcentaje_correcto<-100 * sum(diag(conf_Matrix)) / sum(conf_Matrix)
+porcentaje_correcto
+```
+
+
+Observamos que con este método disminuyo el porcentaje de acierto en la predicción a un 92.34%. El mayor problema son los falsos positivos y los falsos negativos, es decir, que el algoritmo ha clasificado como supervivientes 13 casos que en realidad son no supervivientes y clasifico como no supervivientes 16 casos que en realidad son supervivientes.  
+
+Para ajustar esto podemos asignar penalizaciones a los falsos negativos y falsos positivos, penalizando más lo que nos interesa.Vamos a repetir el método ajustando las penalizaciones con el parámetro loss.  
+
+```{r message= FALSE, warning=FALSE}
+
+library(rpart)
+model_cart<-rpart(Survived~Sex+Pclass+Age+SibSp+Parch+Embarked+Fare,data=titanic.data[1:891,],method="class",parms=list(loss=c(0,0.5,1,0)))
+model_cart
+```
+
+Mostramos el nuevo árbol.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+par(xpd = NA)
+
+plot(model_cart)
+text(model_cart,use.n=TRUE)
+```
+
+Realizamos la predicción.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+
+predicted.classes <- predict( model_cart, titanic.test[,!(colnames(titanic.test) %in% c("Survived"))], type="class" )
+
+```
+
+Hallamos la matriz de confusión.
+
+```{r message= FALSE, warning=FALSE}
+conf_Matrix<-table(predicted.classes,titanic.test$Survived)
+conf_Matrix
+porcentaje_correcto<-100 * sum(diag(conf_Matrix)) / sum(conf_Matrix)
+porcentaje_correcto
+```
+
+
+Después de realizar el ajuste con los pesos, vemos cómo obtenemos un árbol más sencillo y efectivo ya que llegamos a un 97.28% de clasificación correcta.
+
+
+Por último vamos a intentar clasificar mediante un modelo de clústering por el algoritmo mclust, que es un algoritmo basado en modelos.
+ En este caso usa un modelo de mezclas gaussianas, que estima la probabilidad de que un dato pertenezca a cada una de las distribuciones, definidas por su media y su varianza. Para asignar los datos a las distribuciones usa el algoritmo de Esperanza-Maximización.
+ 
+Seleccionamos las columnas de los anteriores modelos e indicamos que sólo queremos 2 grupos.
+
+```{r message= FALSE, warning=FALSE}
+train<-titanic.data[1:891,!(colnames(titanic.test) %in% c("Survived"))]
+
+levels(train$Sex)<-c(0,1)
+
+train$Sex<-as.numeric(as.character(train$Sex))
+
+#train<-train[train$Embarked!="",]
+#levels(train$Embarked)<-droplevels(train$Embarked)
+levels(train$Embarked)<-c(0,1,2)
+train$Embarked<-as.numeric(as.character(train$Embarked))
+levels(train$Pclass)<-c(0,1,2)
+train$Pclass<-as.numeric(as.character(train$Pclass))
+
+
+library(mclust)
+fit <- Mclust(train,G=1:2)
+summary(fit)
+
+
+```
+
+
+
+Vamos a realizar la predicción sobre test, para ello debemos transformar las columnas a numérico, de la misma manera que en train.
+
+```{r message= FALSE, warning=FALSE}
+#install.packages("clue")
+mtest<-titanic.test
+
+
+
+levels(mtest$Sex)<-c(0,1)
+
+mtest$Sex<-as.numeric(as.character(mtest$Sex))
+
+levels(mtest$Embarked)<-c(0,1,2)
+mtest$Embarked<-as.numeric(as.character(mtest$Embarked))
+
+levels(mtest$Pclass)<-c(0,1,2)
+mtest$Pclass<-as.numeric(as.character(mtest$Pclass))
+
+mpredict<-predict.Mclust(fit,mtest[,!(colnames(titanic.test) %in% c("Survived"))])
+
+
+```
+
+Vamos a evaluar el algoritmo de la misma forma que antes, con la matriz de confusión.
+
+```{r message= FALSE, warning=FALSE}
+
+
+
+conf_Matrix<-table(mpredict$classification,mtest$Survived)
+conf_Matrix
+porcentaje_correcto<-100 * sum(diag(conf_Matrix)) / sum(conf_Matrix)
+porcentaje_correcto
+
+
+```
+
+En este caso vemos que el algoritmo se queda en un 59% de efectividad, bastante menor que los anteriores.
+
+
+## Resolución del problema. A partir de los resultados obtenidos, ¿cuáles son las conclusiones? ¿Los resultados permiten responder al problema?  
+
+Hemos comprobado cómo las variables del dataset que habíamos elegido pueden servir para resolver el problema que es predecir la probabilidad de supervivencia de una persona en el hundimiento del Titanic según sus características.
+
+Primero hemos determinado mediante pruebas estadísticas si existe relación entre las variables del dataset y la variable que indica si una persona es superviviente o no, hemos visto que todas las variables pueden ayudarnos en mayor o menor medida a discernir si una persona fue o no superviviente, aunque unas con más significación que otras.
+
+En cuanto a los modelos predictivos, la regresión logística obtiene buenos resultados con un 90% de acierto en los datos de test, sin embargo el árbol de decisión, ajustando las penalizaciones adecuadamente obtiene un excelente resultado y acierta un 97% de los casos. En cuanto a los modelos de clústering, vemos cómo no se ajustan bien para este caso ya que su eficacia se queda en un 60%.
+
+
+## Tabla de contribuciones al trabajo
+
+|  Contribuciones |   Firma |
+|---|---|
+| Investigación previa  |  RT, DO  |
+| Redacción de las respuestas  | RT, DO  |
+| Desarrollo código  |  RT, DO  |
 
 
 # Recursos
