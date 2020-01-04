@@ -5,15 +5,15 @@ date: "Diciembre 2019"
 header-includes:
   - \usepackage[spanish]{babel}
 output: 
+  pdf_document:
+    number_sections: yes
+    toc: yes
+    toc_depth: 2
   html_document:
     includes:
       in_header: PRA2-header.html
     number_sections: yes
     theme: cosmo
-    toc: yes
-    toc_depth: 2
-  pdf_document:
-    number_sections: yes
     toc: yes
     toc_depth: 2
   word_document: default
@@ -129,12 +129,8 @@ A continuación describimos el conjunto de variables que conforman este dataset:
 * __Sex:__ Define el xeso del pasajero.   
 * __pclass:__ Nivel socioeconómico del pasajero (1st = Upper, 2nd = Middle, 3rd = Lower).  
 * __age:__ Edad del pasajero en años.  
-* __sibsp:__ Familiar abordo del Titanic. Define la relación familiar de la siguiente forma:  
- : Hermanos => 1 = hermana, 2 = hermano, 3 = hermanastro, 4 = hermanastra  
- : Esposos => 5 = esposo, 6 = esposa, 7 = amantes y 8 = novio  
-* __parch:__ Familiar abordo del Titanic. Define la relación familiar de la siguiente forma:  
- : Padres => 1 = madre, 2 = padre  
- : Hijos => 3 = hija, 4 = hijo, 5 = hijastra, 6 = hijastro  
+* __sibsp:__ Número de hermanos o cónyuges.  
+* __parch:__ Número de hijos, padres.  
 * __ticket:__ Número del boleto de abordaje.  
 * __fare:__ Precio del boleto.  
 * __cabin:__ Número de la cabina.  
@@ -215,7 +211,7 @@ Con el fin de facilitar la interpretar y comparar los resultados de diferentes g
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 
-cols<-c("Survived","Pclass","Sex","SibSp","Parch","Embarked")
+cols<-c("Survived","Pclass","Sex","Embarked")
 for (i in cols){
   titanic.data[,i] <- as.factor(titanic.data[,i]) # Conversion de variable a tipo factor
 }
