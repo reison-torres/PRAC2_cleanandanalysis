@@ -20,8 +20,8 @@ Los datos de este dataset se encuentran divididos en dos archivos train.csv con 
 ## Descripción de Ficheros
 
 * __[data/](https://github.com/reison-torres/PRAC2_cleanandanalysis/tree/master/datos)__: En este directorio se encuentra los dataset en formato CSV.  
-  : Dataset Original: train.csv, test.cvs y gender_submission.csv  
-  : Dataset Final: titanic.final.csv
+  Dataset Original: train.csv, test.cvs y gender_submission.csv  
+  Dataset Final: titanic.final.csv
 * __[src](https://github.com/reison-torres/PRAC2_cleanandanalysis/tree/master/src)__: En este directorio se encuentra el codigo R.
 * __[pdf/](https://github.com/reison-torres/webscraping/tree/master/pdf/)__: En este directorio encontramos el documento con las respuestas de la PRA2. Este documento se encuentra en los formatos __[PDF](https://github.com/reison-torres/PRAC2_cleanandanalysis/tree/master/pdf/respuestas.pdf)__, __[HTML](https://github.com/reison-torres/PRAC2_cleanandanalysis/tree/master/pdf/respuestas.html)__ y __[Markdwon](https://github.com/reison-torres/PRAC2_cleanandanalysis/tree/master/pdf/respuestas.Rmd)__.
 
