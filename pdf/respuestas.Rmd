@@ -710,14 +710,14 @@ porcentaje_correcto
 ```
 
 
-Observamos que con este método disminuyo el porcentaje de acierto en la predicción a un 92.34%. El mayor problema son los falsos positivos y los falsos negativos, es decir, que el algoritmo ha clasificado como supervivientes 13 casos que en realidad son no supervivientes y clasifico como no supervivientes 16 casos que en realidad son supervivientes.  
+Observamos que con este método disminuyo el porcentaje de acierto en la predicción a un 92.34%. El mayor problema son los falsos positivos, es decir, que el algoritmo ha clasificado como supervivientes 23 casos que en realidad son no supervivientes.  
 
 Para ajustar esto podemos asignar penalizaciones a los falsos negativos y falsos positivos, penalizando más lo que nos interesa.Vamos a repetir el método ajustando las penalizaciones con el parámetro loss.  
 
 ```{r message= FALSE, warning=FALSE}
 
 library(rpart)
-model_cart<-rpart(Survived~Sex+Pclass+Age+SibSp+Parch+Embarked+Fare,data=titanic.data[1:891,],method="class",parms=list(loss=c(0,0.5,1,0)))
+model_cart<-rpart(Survived~Sex+Pclass+Age+SibSp+Parch+Embarked+Fare,data=titanic.data[1:891,],method="class",parms=list(loss=c(0,1.20,1,0)))
 model_cart
 ```
 
@@ -748,7 +748,7 @@ porcentaje_correcto
 ```
 
 
-Después de realizar el ajuste con los pesos, vemos cómo obtenemos un árbol más sencillo y efectivo ya que llegamos a un 97.28% de clasificación correcta.
+Después de realizar el ajuste con los pesos, vemos que obtenemos un árbol menos efectivo ya que llegamos a un 88.27% de clasificación correcta.
 
 
 Por último vamos a intentar clasificar mediante un modelo de clústering por el algoritmo mclust, que es un algoritmo basado en modelos.
@@ -817,7 +817,7 @@ porcentaje_correcto
 
 ```
 
-En este caso vemos que el algoritmo se queda en un 59% de efectividad, bastante menor que los anteriores.
+En este caso vemos que el algoritmo se queda en un 46.65% de efectividad, bastante menor que los anteriores.
 
 
 ## Resolución del problema. A partir de los resultados obtenidos, ¿cuáles son las conclusiones? ¿Los resultados permiten responder al problema?  
@@ -826,10 +826,13 @@ Hemos comprobado cómo las variables del dataset que habíamos elegido pueden se
 
 Primero hemos determinado mediante pruebas estadísticas si existe relación entre las variables del dataset y la variable que indica si una persona es superviviente o no, hemos visto que todas las variables pueden ayudarnos en mayor o menor medida a discernir si una persona fue o no superviviente, aunque unas con más significación que otras.
 
-En cuanto a los modelos predictivos, la regresión logística obtiene buenos resultados con un 90% de acierto en los datos de test, sin embargo el árbol de decisión, ajustando las penalizaciones adecuadamente obtiene un excelente resultado y acierta un 97% de los casos. En cuanto a los modelos de clústering, vemos cómo no se ajustan bien para este caso ya que su eficacia se queda en un 60%.
+En cuanto a los modelos predictivos, la regresión logística obtiene el mejor resultado con un 93% de acierto en los datos de test, sin embargo el árbol de decisión dio un 92% de acierto, aunque se ajustaron las penalizaciones adecuadamente no mejoro los resultados con un 88% de eficacia En cuanto a los modelos de clústering, vemos cómo no se ajustan bien para este caso ya que su eficacia se queda en un 46%.
 
 
 ## Tabla de contribuciones al trabajo
+
+
+Todos los integrantes de este grupo contribuyeron en el desarrollo y solución de cada uno de los apartados que componen la PRA2.  
 
 |  Contribuciones |   Firma |
 |---|---|
@@ -837,6 +840,20 @@ En cuanto a los modelos predictivos, la regresión logística obtiene buenos res
 | Redacción de las respuestas  | RT, DO  |
 | Desarrollo código  |  RT, DO  |
 
+## Miembros del equipo
+
+|  Nombre |   Correo |   Iniciales |
+|---|---|---|
+| Reison Torres Urina |  rtorresu\@uoc.edu  | RT |
+| David Ordorica Rubiano |  dordorica\@uoc.edu  | DO | 
+
 
 # Recursos
 
+1. Brett, Lantz. (2013). "Machine Learning with R". (ISBN: 978-1-78216-214-8). UK: Packt Publishing Ltd.
+
+2. Salazar, Camila. (2018, 13 de febrero). “Cálculo de correlaciones”. RPubs [artículo en línea]. [Fecha de consulta: 26 de diciembre del 2019]. <https://rpubs.com/camilamila/correlaciones>
+
+3. Sanguesa, R. (n.d.). Preparación de datos. Universitat Oberta de Catalunya.
+
+4. Subirats, Laia. (n.d.). Introducción a la limpieza y análisis de los datos. Universitat Oberta de Catalunya.
