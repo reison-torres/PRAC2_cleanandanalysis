@@ -1,7 +1,7 @@
 ---
 title: "Actividad: PRA2: Limpieza y análisis de datos"
-author: "Reison A. Torres Urina"
-date: "Diciembre 2019"
+author: "Reison A. Torres Urina y David Ordorica"
+date: "Enero 2020"
 header-includes:
   - \usepackage[spanish]{babel}
 output: 
@@ -425,15 +425,15 @@ Las variables que vamos a analizar son sex, pclass, age, sibsp,parch,embarked,fa
 
 ### Comprobación de la normalidad y homogeneidad de la varianza.
 
-[Ver apartado 2.5](#apartado25)
+__Ver apartado 2.5__
 
 ### Aplicación de pruebas estadísticas para comparar los grupos de datos. En función de los datos y el objetivo del estudio, aplicar pruebas de contraste de hipótesis, correlaciones, regresiones, etc. Aplicar al menos tres métodos de análisis diferentes.  
 
-[Ver apartado 2.5](#apartado25)
+__Ver apartado 2.5__
 
 
 ## Representación de los resultados a partir de tablas y gráficas.  
-<a name="apartado25"></a>
+
 Por claridad en el informe, en este apartado se compilan los 3 puntos anteriores (apartados 2.4.2 y 2.4.3) ya que se realizan las pruebas estadísticas así como los métodos de análisis pertinentes para determinar qué probabilidades tiene cada persona de haber sobrevivido al hundimiento del Titanic, además se representan las tablas y gráficas pertinentes para una mejor visualización de cada apartado del análisis.
 
 Vamos a comenzar analizando la variable sex con respecto a survived, en este caso podemos realizar una tabla de contingencia. Al ser 2 variables categóricas no tiene sentido analizar la distribución.
